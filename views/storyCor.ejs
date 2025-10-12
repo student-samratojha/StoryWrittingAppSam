@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All Stories - Story Writing App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-black p-6 text-white min-h-screen">
+    <h1
+      class="text-3xl flex items-center justify-between font-bold text-orange-400 mb-6 text-center"
+    >
+      All Stories
+      <a href="/dashboard" class="text-sm font-semibold text-cyan-400"
+        >Back to Dashboard</a
+      >
+    </h1>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6"
+    >
+      <% Allst.forEach(story => { %>
+      <div
+        class="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
+      >
+        <!-- Story Poster -->
+        <div class="w-full">
+          <img src="<%= story.storyImage %>" class="w-full h-48 object-cover" />
+        </div>
+
+        <!-- Story Content -->
+        <div class="p-4 flex flex-col flex-1">
+          <h3 class="text-white font-bold text-lg mb-1"><%= story.title %></h3>
+          <p class="text-gray-400 select-none text-sm flex-1 overflow-hidden">
+            <%= story.story %>
+          </p>
+          <div class="flex items-center justify-between">
+            <p class="text-gray-300 mt-2 text-sm italic">
+              Writer: <%= story.userName %>
+            </p>
+<button
+  class="like-btn text-blue-400 text-xl font-semibold"
+  data-story="<%= story._id %>"
+  <% if (story.userId.toString() === user.toString()) { %> 
+    style="pointer-events: none; opacity: 0.5;" 
+  <% } %>>
+  
+  <i
+    class="<%= (story.likes && story.likes.includes(user._id)) 
+      ? 'fa-solid fa-heart' 
+      : 'fa-regular fa-heart' %>"
+  ></i>
+</button>
+
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <script>
+      document.querySelectorAll(".like-btn").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const storyId = btn.dataset.story;
+          const heartIcon = btn.querySelector("i");
+          const countSpan = btn.querySelector(".likes-count");
+
+          try {
+            const res = await fetch(`/like-story/${storyId}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+            });
+
+            const data = await res.json();
+
+            // Toggle heart
+            if (data.liked) {
+              heartIcon.classList.remove("fa-regular");
+              heartIcon.classList.add("fa-solid");
+            } else {
+              heartIcon.classList.remove("fa-solid");
+              heartIcon.classList.add("fa-regular");
+            }
+
+            // Update count
+            countSpan.textContent = data.likesCount;
+          } catch (err) {
+            console.error(err);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
