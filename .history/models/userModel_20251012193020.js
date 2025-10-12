@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "City is required"],
     },
-
+   
     occupation: {
       type: String,
       required: [true, "Occupation is required"],
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Education is required"],
     },
-
+    
     role: {
       type: String,
       enum: ["user", "admin"],

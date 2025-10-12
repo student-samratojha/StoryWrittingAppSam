@@ -23,7 +23,7 @@ router.post("/signup", async (req, res) => {
     name,
     email,
     password,
-    image,
+
     city,
 
     occupation,
@@ -51,8 +51,11 @@ router.post("/signup", async (req, res) => {
       password,
       image,
       city,
+      adharNumber,
       occupation,
       education,
+      phoneNumber,
+      dob,
       uniqueId, // ← save in DB
     });
     res.render("sPro", { p: user }); // sPro page me dikhao

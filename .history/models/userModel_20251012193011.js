@@ -24,7 +24,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "City is required"],
     },
-
+    adharNumber: {
+      type: String,
+      required: [true, "Aadhar number is required"],
+    },
     occupation: {
       type: String,
       required: [true, "Occupation is required"],
@@ -33,7 +36,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Education is required"],
     },
-
+    phoneNumber: {
+      type: String,
+      required: [true, "Phone number is required"],
+    },
+    dob: {
+      type: Date,
+      required: [true, "Date of birth is required"],
+    },
     role: {
       type: String,
       enum: ["user", "admin"],

@@ -32,7 +32,15 @@
         Email: <span class="text-white"><%= p.email %></span>
       </p>
      
-     
+      <p class="text-lg text-red-400 font-semibold">
+        DOB:
+        <span class="text-white"
+          ><%= new Date(p.dob).toLocaleDateString() %></span
+        >
+      </p>
+      <p class="text-lg text-red-400 font-semibold">
+        Adhar: <span class="text-white"><%= p.adharNumber %></span>
+      </p>
       <p class="text-lg text-red-400 font-semibold">
         City: <span class="text-white"><%= p.city %></span>
       </p>
@@ -46,6 +54,6 @@
         Role: <span class="text-white"><%= p.role %></span>
       </p>
     </div>
-    <a href="/login" class="text-sm mt-2 font-semibold text-white px-3 py-2 border-2 rounded-full">Login your Account</a>
+    <a href="/login" class="text-sm font-semibold text-white px-3 py-2 border-2 rounded-full">Login your Account</a>
   </body>
 </html>

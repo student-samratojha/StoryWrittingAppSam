@@ -16,15 +16,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    image: {
-      type: String,
-      required: [true, "Image is required"],
-    },
+    
     city: {
       type: String,
       required: [true, "City is required"],
     },
-
+    
     occupation: {
       type: String,
       required: [true, "Occupation is required"],
@@ -33,7 +30,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Education is required"],
     },
-
+   
+    dob: {
+      type: Date,
+      required: [true, "Date of birth is required"],
+    },
     role: {
       type: String,
       enum: ["user", "admin"],

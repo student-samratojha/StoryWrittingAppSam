@@ -23,7 +23,7 @@ router.post("/signup", async (req, res) => {
     name,
     email,
     password,
-    image,
+image
     city,
 
     occupation,

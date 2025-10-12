@@ -25,9 +25,11 @@ router.post("/signup", async (req, res) => {
     password,
     image,
     city,
-
+    adharNumber,
     occupation,
     education,
+    phoneNumber,
+    dob,
   } = req.body;
 
   try {
@@ -51,8 +53,11 @@ router.post("/signup", async (req, res) => {
       password,
       image,
       city,
+      adharNumber,
       occupation,
       education,
+      phoneNumber,
+      dob,
       uniqueId, // ← save in DB
     });
     res.render("sPro", { p: user }); // sPro page me dikhao
