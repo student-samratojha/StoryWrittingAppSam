@@ -20,46 +20,6 @@ router.get("/login", (req, res) => {
   res.render("login", { captcha });
 });
 
-router.post("/login", async (req, res) => {
-  const { uniqueId, password, captchacode } = req.body;
-
-  try {
-    const user = await User.findOne({ uniqueId });
-    if (!user) return res.send("Invalid credentials");
-
-    // Check if email verified
-    if (!user.verified) return res.send("Please verify your email first");
-
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) return res.send("Invalid credentials");
-
-    // Captcha check from cookie
-    const storedCaptcha = req.cookies.captcha;
-    if (
-      !storedCaptcha ||
-      captchacode.trim().toLowerCase() !== storedCaptcha.toLowerCase()
-    ) {
-      return res.send("Invalid captcha code");
-    }
-
-    // JWT
-    const token = jwt.sign(
-      { uniqueId: user.uniqueId, id: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
-    res.cookie("token", token, { httpOnly: true });
-
-    // captcha clear kar do (optional)
-    res.clearCookie("captcha");
-
-    res.redirect("/dashboard");
-  } catch (err) {
-    console.log(err);
-    res.send("Login error");
-  }
-});
-
 // // Login POST
 // router.post("/login", async (req, res) => {
 //   const { uniqueId, password, captchacode } = req.body;

@@ -16,13 +16,6 @@
         Login
       </h2>
 
-      <% if (typeof error !== 'undefined') { %>
-        <p class="text-red-500 text-center mb-4"><%= error %></p>
-      <% } %>
-      <% if (typeof message !== 'undefined') { %>
-        <p class="text-green-400 text-center mb-4"><%= message %></p>
-      <% } %>
-
       <form action="/login" method="POST" class="flex flex-col gap-4">
         <input
           type="text"
@@ -50,7 +43,10 @@
               <%= captcha %>
               <div
                 class="absolute top-0 left-0 w-full h-full"
-                style="background-color: rgba(190, 185, 185, 0.068); pointer-events: none;"
+                style="
+                  background-color: rgba(190, 185, 185, 0.068);
+                  pointer-events: none;
+                "
               ></div>
             </span>
           </span>
