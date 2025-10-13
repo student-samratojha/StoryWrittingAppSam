@@ -4,7 +4,7 @@ A full-stack web application built with **Node.js, Express, EJS, MongoDB, and Ta
 
 ## 🚀 Live Demo
 
-[View Live App](https://storywrittingapp.onrender.com)
+[View Live App](https://storywrittingappsam.onrender.com/)
 
 ---
 
