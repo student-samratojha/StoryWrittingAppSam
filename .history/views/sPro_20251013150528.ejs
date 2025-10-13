@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Registered User Info</title>
+  </head>
+  <body
+    class="w-full h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex flex-col items-center justify-center"
+  >
+    <div
+      class="p-6 bg-black/50 backdrop-blur-md border-2 border-red-500 rounded-2xl w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[90vh] overflow-y-auto"
+    >
+      <!-- User Photo at the top spanning both columns -->
+      <div class="md:col-span-2 flex justify-center">
+        <img
+          src="<%= p.image %>"
+          class="w-32 h-32 object-cover rounded-full border-2 border-red-500 mb-3"
+          alt="User Photo"
+        />
+      </div>
+
+      <!-- Info fields -->
+      <p class="text-lg text-red-400 font-semibold">
+        Unique ID: <span class="text-white"><%= p.uniqueId %></span>
+      </p>
+      <p class="text-lg text-red-400 font-semibold">
+        Name: <span class="text-white"><%= p.name %></span>
+      </p>
+      <p class="text-lg text-red-400 font-semibold">
+        Email: <span class="text-white"><%= p.email %></span>
+      </p>
+     
+     
+      <p class="text-lg text-red-400 font-semibold">
+        City: <span class="text-white"><%= p.city %></span>
+      </p>
+      <p class="text-lg text-red-400 font-semibold">
+        Occupation: <span class="text-white"><%= p.occupation %></span>
+      </p>
+      <p class="text-lg text-red-400 font-semibold">
+        Education: <span class="text-white"><%= p.education %></span>
+      </p>
+      <p class="text-lg text-red-400 font-semibold">
+        Role: <span class="text-white"><%= p.role %></span>
+      </p>
+            <p class="text-lg text-red-400 font-semibold">
+        Verif: <span class="text-white"><%= p.role %></span>
+      </p>
+    </div>
+    <a href="/login" class="text-sm mt-2 font-semibold text-white px-3 py-2 border-2 rounded-full">Login your Account</a>
+  </body>
+</html>

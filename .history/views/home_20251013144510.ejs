@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story Writing App - Home</title>
+    <style>
+      /* Blob animation */
+      @keyframes blobMove {
+        0% {
+          transform: translate(0px, 0px) scale(1);
+        }
+        33% {
+          transform: translate(30px, -50px) scale(1.1);
+        }
+        66% {
+          transform: translate(-20px, 20px) scale(0.9);
+        }
+        100% {
+          transform: translate(0px, 0px) scale(1);
+        }
+      }
+
+      .blob {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        z-index: 0; /* behind card */
+        border-radius: 50%;
+        opacity: 0.3; /* make colors more visible */
+        animation: blobMove 10s infinite alternate; /* smooth infinite animation */
+        /* Remove mix-blend-mode for better visibility on black */
+      }
+    </style>
+  </head>
+  <body
+    class="relative bg-black flex items-center justify-center min-h-screen overflow-hidden"
+  >
+    <!-- Animated blobs -->
+    <div
+      class="blob"
+      style="
+        background: #00ffff;
+        top: -100px;
+        left: -100px;
+        animation-duration: 10s;
+      "
+    ></div>
+    <div
+      class="blob"
+      style="
+        background: #ff00ff;
+        top: 200px;
+        left: 50px;
+        animation-duration: 12s;
+      "
+    ></div>
+    <div
+      class="blob"
+      style="
+        background: #ffb200;
+        top: 100px;
+        left: 200px;
+        animation-duration: 14s;
+      "
+    ></div>
+    <div
+      class="blob"
+      style="background: #00ffff; top: 44%; left: 64%; animation-duration: 10s"
+    ></div>
+    <div
+      class="blob"
+      style="background: #ff00ff; top: 30%; left: 50%; animation-duration: 12s"
+    ></div>
+    <div
+      class="blob"
+      style="background: #ffb200; top: 30%; left: 44%; animation-duration: 14s"
+    ></div>
+
+    <!-- Main card -->
+    <div
+      class="relative p-8 bg-black/50 backdrop-blur-md border border-gray-700 rounded-2xl w-full max-w-xl text-center shadow-xl z-10"
+    >
+      <!-- App Logo / Icon -->
+      <div class="mb-6">
+        <img
+          src="https://img.icons8.com/fluency/96/storybook.png"
+          alt="App Logo"
+          class="mx-auto w-24 h-24"
+        />
+      </div>
+
+      <!-- App Name -->
+      <h1 class="text-4xl text-cyan-400 font-bold mb-2 drop-shadow-lg">
+        Story Writing App
+      </h1>
+
+      <!-- Developer Info -->
+      <p class="text-white text-lg mb-4">
+        Created by <span class="font-semibold text-cyan-400">Samrat Ojha</span>
+      </p>
+
+      <!-- Short Description -->
+      <p class="text-gray-300 mb-6">
+        Write, save, and manage your stories in a sleek, modern, and easy-to-use
+        interface. Join our community and bring your imagination to life!
+      </p>
+
+      <!-- Buttons -->
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a
+          href="/signup"
+          class="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 px-6 rounded-full shadow-md"
+        >
+          Sign Up
+        </a>
+        <a
+          href="/login"
+          class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-full shadow-md"
+        >
+          Login
+        </a>
+        <a
+          href="/storyCorner"
+          class="bg-transparent border text-white font-semibold py-2 px-6 rounded-full shadow-md"
+        >
+          Read Story
+        </a>
+      </div>
+
+      <!-- Footer Info -->
+      <p class="text-gray-400 text-sm mt-6">
+        &copy; 2025 Story Writing App. All rights reserved.
+      </p>
+    </div>
+  </body>
+</html>

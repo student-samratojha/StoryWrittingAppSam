@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Story Wirtting App - User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body
+    class="bg-[url(https://images.alphacoders.com/133/1338864.png)] bg-cover p-6 text-white min-h-screen"
+  >
+    <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+      <!-- Left Panel: User Info -->
+      <div
+        class="md:w-1/3 bg-gray-900 border border-gray-700 rounded-2xl px-6 py-4 flex flex-col items-center gap-4 shadow-lg"
+      >
+        <img
+          src="<%= user.image %>"
+          class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-orange-500"
+        />
+        <h1
+          class="text-2xl font-bold text-center text-orange-400 drop-shadow-lg"
+        >
+          <%= user.name %>
+        </h1>
+        <% if(user.email){ %>
+        <p class="text-gray-400 text-center text-sm"><%= user.email %></p>
+        <% } %> <% if(user.education){ %>
+        <p class="text-gray-300 text-center text-sm">
+          Education:
+          <span class="font-semibold text-white"><%= user.education %></span>
+        </p>
+        <% } %> <% if(user.occupation){ %>
+        <p class="text-gray-300 text-center text-sm">
+          Occupation:
+          <span class="font-semibold text-white"><%= user.occupation %></span>
+        </p>
+        <% } %>
+        <div class="flex gap-4 items-center">
+          <a
+            href="/logout"
+            class="bg-red-600 text-sm hover:bg-red-700 px-6 py-2 rounded-full font-semibold shadow text-white mt-2"
+          >
+            Logout </a
+          ><a
+            href="/storyCor"
+            class="bg-black px-6 text-sm py-2 rounded-full font-semibold shadow text-cyan-400 mt-2"
+          >
+            See All Stories
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Panel: Story Form -->
+      <form
+        action="/feed"
+        method="post"
+        class="md:w-2/3 rounded-2xl border border-gray-700 bg-black/22 backdrop-blur-[1px] px-6 py-4 flex flex-col gap-4"
+      >
+        <h2 class="text-2xl text-center font-semibold mb-2">Story Feeding</h2>
+        <input
+          type="text"
+          class="py-2 px-3 rounded-full border-2 border-gray-600 bg-transparent text-orange-500 focus:outline-none"
+          placeholder="Title here..."
+          required
+          name="title"
+        />
+        <input type="hidden" name="userId" value="<%=user._id%>" />
+
+        <input
+          type="text"
+          class="py-2 px-3 rounded-full border-2 border-gray-600 bg-transparent text-orange-500 focus:outline-none"
+          placeholder="Story Poster URL..."
+          required
+          name="storyImage"
+        />
+        <textarea
+          class="py-2 px-3 rounded-xl border-2 border-gray-600 bg-transparent text-orange-500 focus:outline-none resize-none h-32"
+          placeholder="Story here..."
+          required
+          name="story"
+        ></textarea>
+        <input
+          type="submit"
+          value="Submit"
+          class="hover:text-cyan-400 bg-black px-4 py-2 rounded-full font-semibold cursor-pointer text-white mt-2"
+        />
+      </form>
+    </div>
+
+    <% if (st && st.length > 0) { %>
+    <div class="grid grid-cols-1 mt-6 md:grid-cols-2 gap-6">
+      <% st.forEach(s => { %>
+      <div
+        class="p-4 border border-gray-700 rounded-lg bg-gray-900 flex flex-col gap-2 shadow-md hover:shadow-xl transition-shadow"
+      >
+        <% if(s.storyImage){ %>
+        <img
+          src="<%= s.storyImage %>"
+          class="w-full h-48 object-cover rounded-lg mb-2"
+        />
+        <% } %>
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold text-orange-400"><%= s.title %></h3>
+          <p class="text-sm text-gray-200">isApproved: <span class="text-green-400 font-semibold "><%= s.isApproved %></span>
+          </p>
+        </div>
+        <p class="text-gray-300"><%= s.story %></p>
+        <div class="flex items-center justify-between">
+          <p class="text-sm text-gray-500">
+            Posted on <%= s.createdAt.toDateString() %>
+          </p>
+
+          <p class="text-sm text-gray-500">
+            Liked By <%= s.likes.length%>
+            <i class="fa-solid fa-users text-blue-400"></i>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <p class="text-gray-500">No stories posted yet.</p>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story Witting App - Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-black flex items-center justify-center min-h-screen">
+    <form
+      action="/signup"
+      method="POST"
+      class="bg-black/50 backdrop-blur-md border border-gray-700 px-8 py-5 rounded-2xl w-full max-w-4xl shadow-xl grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[90vh] overflow-y-auto"
+    >
+      <h2
+        class="text-3xl text-cyan-400 font-bold text-center md:col-span-2 mb-6 drop-shadow-lg"
+      >
+        Sign Up
+      </h2>
+
+      <% if (typeof error !== 'undefined') { %>
+      <p class="text-red-500 text-center md:col-span-2 mb-4"><%= error %></p>
+      <% } %> <% if (typeof message !== 'undefined') { %>
+      <p class="text-green-400 text-center md:col-span-2 mb-4">
+        <%= message %>
+      </p>
+      <% } %>
+
+      <!-- Left Column -->
+      <input
+        type="text"
+        name="name"
+        placeholder="Full Name"
+        required
+        class="py-2 px-4 rounded-full border border-gray-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="py-2 px-4 rounded-full border border-gray-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+        class="py-2 px-4 rounded-full border border-gray-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+      <input
+        type="text"
+        name="city"
+        placeholder="City"
+        required
+        class="py-2 px-4 rounded-full border border-gray-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+      <input
+        type="text"
+        name="image"
+        placeholder="Photo URL"
+        required
+        class="py-2 px-4 rounded-full border border-gray-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+      <input
+        type="text"
+        name="occupation"
+        placeholder="Occupation"
+        required
+        class="py-2 px-4 rounded-full border border-gray-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+      <input
+        type="text"
+        name="education"
+        placeholder="Education"
+        required
+        class="py-2 px-4 rounded-full border border-gray-600 bg-transparent text-white placeholder-gray-400 focus:outline-none md:col-span-2 focus:ring-2 focus:ring-cyan-400"
+      />
+
+
+<!-- Custom captcha -->
+<div class="flex items-center gap-4 md:col-span-2">
+  <span class="text-white bg-gray-900 px-3 py-2 rounded-full">
+    Captcha: <%= captcha %>
+  </span>
+  <input
+    type="text"
+    name="captchacode"
+    placeholder="Enter Captcha"
+    required
+    class="py-2 px-4 rounded-full border border-gray-600 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 flex-1"
+  />
+</div>
+
+      <!-- Submit Button spans 2 columns -->
+      <button
+        type="submit"
+        class="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-2 rounded-full mt-4 shadow-md md:col-span-2"
+      >
+        Sign Up
+      </button>
+
+
+      <!-- Links spans 2 columns -->
+      <p class="mt-3 text-center text-gray-400 text-sm md:col-span-2">
+       
+        <a href="/" class="text-cyan-400 hover:underline">Home</a> &nbsp; |
+        &nbsp; Already have an account?
+        <a href="/login" class="text-cyan-400 hover:underline">Login</a>
+      </p>
+    </form>
+  </body>
+</html>

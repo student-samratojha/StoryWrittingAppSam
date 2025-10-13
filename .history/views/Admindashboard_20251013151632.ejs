@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Story Writing App - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* global.css ya style tag me */
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
+    </style>
+  </head>
+  <body class="bg-black p-6 text-white min-h-screen">
+    <div class="flex max-h-[400px] flex-col md:flex-row gap-6 md:gap-8">
+      <!-- Left Panel: Admin Info -->
+      <div
+        class="md:w-1/3 bg-gray-900 border border-gray-700 rounded-2xl p-6 flex flex-col items-center gap-3 shadow-lg flex-shrink-0"
+      >
+        <img
+          src="<%= admin.image %>"
+          class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-orange-500"
+        />
+        <h1
+          class="text-2xl font-bold text-center text-orange-400 drop-shadow-lg"
+        >
+          <%= admin.name %>
+        </h1>
+        <% if(admin.email){ %>
+        <p class="text-gray-400 text-center text-sm"><%= admin.email %></p>
+        <% } %> <% if(admin.education){ %>
+        <p class="text-gray-300 text-center text-sm">
+          Education:
+          <span class="font-semibold text-white"><%= admin.education %></span>
+        </p>
+        <% } %> <% if(admin.occupation){ %>
+        <p class="text-gray-300 text-center text-sm">
+          Occupation:
+          <span class="font-semibold text-white"><%= admin.occupation %></span>
+        </p>
+        <% } %>
+        <a
+          href="/logout"
+          class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-full font-semibold shadow text-white"
+          >Logout</a
+        >
+      </div>
+
+      <div class="md:w-2/3 flex flex-col gap-4">
+        <!-- Users List -->
+        <div
+          class="bg-gray-900 border border-gray-700 rounded-2xl p-4 shadow-lg"
+        >
+          <h2 class="text-xl font-bold text-orange-400 mb-4">
+            Registered Members
+          </h2>
+
+          <div
+            class="grid grid-cols-1 h-[320px] md:grid-cols-2 gap-4 hide-scrollbar overflow-y-auto"
+          >
+            <% users.forEach(user => { %>
+            <div
+              class="bg-gray-800 max-h-[90px] hover:border-orange-400 justify-between rounded-2xl p-3 flex items-center gap-3 border border-gray-700 shadow hover:shadow-lg transition-shadow duration-300"
+            >
+              <!-- User Image -->
+              <div class="flex gap-4 items-center">
+                <img
+                  src="<%= user.image || 'https://via.placeholder.com/60' %>"
+                  class="w-16 h-16 rounded-full object-cover border-2 border-orange-400 flex-shrink-0"
+                />
+
+                <!-- User Info -->
+                <div class="flex flex-col">
+                  <h3 class="text-white font-semibold text-md">
+                    <%= user.name %>
+                  </h3>
+                  <p class="text-gray-300 text-sm"><%= user.email %></p>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 flex-col">
+                <!-- Delete -->
+                  <%if(user.role==="admin"){%>
+                    <p 
+                  class="inline-block capitalize text-sm font-semibold rounded-full px-2 py-0.5 <%= user.role === 'admin' ? 'text-yellow-400 border border-yellow-400' : 'text-blue-400 border border-blue-400' %>"
+                    >Athority</p>
+                    <%} else {%>
+                      
+                <a
+                  href="delete-user/<%= user._id %>"
+                  class="text-red-400 hover:text-red-600 text-2xl font-bold rounded-full shadow ml-auto"
+                  onclick="return confirm('Are you sure you want to delete this user?');"
+                  >&times;</a
+                >
+                <%}%><div class="flex gap-2 items-center">
+                  <span
+                  class="inline-block capitalize text-sm font-semibold rounded-full px-2 py-0.5 <%= user.role === 'admin' ? 'text-yellow-400 border border-yellow-400' : 'text-blue-400 border border-blue-400' %>"
+                >
+                  <%= user.role %>
+                </span>
+               <%if(user.role==="admin"){%>
+                 <span
+                  class="inline-block capitalize text-sm font-semibold rounded-full px-2 py-0.5 <%= user.role === 'admin' ? 'text-yellow-400 border border-yellow-400' : 'text-blue-400 border border-blue-400' %>"
+                >
+                  Approver
+                </span>
+                <%} else{%>
+                   <span
+                  class="inline-block capitalize text-sm font-semibold rounded-full px-2 py-0.5 <%= user.role === 'admin' ? 'text-yellow-400 border border-yellow-400' : 'text-blue-400 border border-blue-400' %>"
+                >
+                  <%= user.isApproved %>
+                </span>
+                <%}%>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pending Users Section -->
+    <div class="bg-black/40 backdrop-blur-md rounded-2xl p-6 shadow-lg">
+      <h2 class="text-2xl font-semibold mb-4">Pending Users</h2>
+
+      <% if (pending.length === 0) { %>
+      <p class="text-gray-300">No pending users at the moment.</p>
+      <% } else { %>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white/10 rounded-lg shadow">
+          <thead class="bg-white/20">
+            <tr>
+              <th class="py-2 px-4 text-left">Name</th>
+              <th class="py-2 px-4 text-left">Email</th>
+              <th class="py-2 px-4 text-left">City</th>
+              <th class="py-2 px-4 text-left">Occupation</th>
+              <th class="py-2 px-4 text-left">Education</th>
+              <th class="py-2 px-4 text-left">Address</th>
+              <th class="py-2 px-4 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% pending.forEach(user => { %>
+            <tr class="border-b border-white/20 hover:bg-white/10">
+              <td class="py-2 px-4"><%= user.name %></td>
+              <td class="py-2 px-4"><%= user.email %></td>
+              <td class="py-2 px-4"><%= user.city %></td>
+              <td class="py-2 px-4"><%= user.occupation %></td>
+              <td class="py-2 px-4"><%= user.education %></td>
+              <td class="py-2 px-4"><%= user.city %></td>
+              <td class="py-2 px-4 text-center space-x-2">
+                <form
+                  action="/admin/approve/<%= user._id %>"
+                  method="POST"
+                  class="inline"
+                >
+                  <button
+                    type="submit"
+                    class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+                  >
+                    Approve
+                  </button>
+                </form>
+                <form
+                  action="/admin/reject/<%= user._id %>"
+                  method="POST"
+                  class="inline"
+                >
+                  <button
+                    type="submit"
+                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                  >
+                    Reject
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } %>
+    </div>
+    <!-- Stories Parent Box -->
+    <div
+      class="bg-gray-900 border border-gray-700 rounded-2xl p-6 shadow-lg mt-6"
+    >
+      <h2 class="text-2xl font-bold text-orange-400 mb-4">All Stories</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <% users.forEach(user => { %> <% if(user.stories && user.stories.length
+        > 0){ %> <% user.stories.forEach(story => { %>
+        <div
+          class="bg-gray-800 rounded-xl shadow-lg border border-gray-700 flex flex-col overflow-hidden"
+        >
+          <!-- Image: Auto height, width full, maintains aspect ratio -->
+          <img
+            src="<%= story.storyImage %>"
+            class="w-full h-auto max-h-48 object-cover flex-shrink-0"
+          />
+
+          <!-- Content -->
+          <div class="p-4 flex flex-col flex-1">
+            <h3 class="font-bold text-lg text-white"><%= story.title %></h3>
+            <p class="text-gray-400 mt-2"><%= story.story %></p>
+            <p class="text-gray-300 mt-2 text-sm italic">
+              Writer: <%= user.name %>
+            </p>
+          </div>
+        </div>
+
+        <% }) %> <% } %> <% }) %>
+      </div>
+    </div>
+  </body>
+</html>
