@@ -34,14 +34,10 @@ app.get("/", (req, res) => {
 const session = require("express-session");
 const flash = require("connect-flash");
 
-const MongoStore = require("connect-mongo");
-
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-  cookie: { secure: false, maxAge: 1000 * 60 * 60 } // 1 hour
+  saveUninitialized: true
 }));
 
 app.use(flash());
