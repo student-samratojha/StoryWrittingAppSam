@@ -12,7 +12,7 @@ const authLimiter = rateLimit({
   max: 5, // Max 5 requests per IP per window
   message: "Too many attempts. Please try again after 20 minutes.",
 });
-const app = express();
+
 // Apply rate limiter only to login & register routes
 app.use("/login", authLimiter);
 app.use("/register", authLimiter);
