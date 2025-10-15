@@ -1,10 +1,20 @@
 require("dotenv").config();
-
+const rateLimit = require("express-rate-limit");
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+// Rate Limiter for sensitive routes
+// ==========================
+const authLimiter = rateLimit({
+  windowMs: 20 * 60 * 1000, // 20 minutes
+  max: 5, // Max 5 requests per IP per window
+  message: "Too many attempts. Please try again after 20 minutes.",
+});
+// Apply rate limiter only to login & register routes
+app.use("/login", authLimiter);
+app.use("/register", authLimiter);
 
 const app = express();
 app.set("view engine", "ejs");
