@@ -33,10 +33,9 @@ const smartLimiter = rateLimit({
 
 // ✅ Apply limiter where you want (e.g. login route)
 const app = express();
-app.set('trust proxy', 1);
 // Apply rate limiter only to login & register routes
-app.use("/login", smartLimiter);
-app.use("/register", smartLimiter);
+app.use("/login", smaLimiter);
+app.use("/register", authLimiter);
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));

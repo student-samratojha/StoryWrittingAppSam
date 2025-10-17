@@ -7,6 +7,8 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 // Rate Limiter for sensitive routes
 // ==========================
+const rateLimit = require("express-rate-limit");
+
 // ⚙️ Set of temporarily blocked IPs
 const badIPs = new Set();
 
@@ -32,11 +34,12 @@ const smartLimiter = rateLimit({
 });
 
 // ✅ Apply limiter where you want (e.g. login route)
+app.use("/api/login", smartLimiter);
+
 const app = express();
-app.set('trust proxy', 1);
 // Apply rate limiter only to login & register routes
-app.use("/login", smartLimiter);
-app.use("/register", smartLimiter);
+app.use("/login", authLimiter);
+app.use("/register", authLimiter);
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
